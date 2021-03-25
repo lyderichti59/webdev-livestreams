@@ -1,0 +1,50 @@
+#+TITLE:  Onboarding LaSocieteNouvelle-Website
+#+DATE_CREATED: <2021-03-20>
+#+DATE_UPDATED: <2021-03-25 10:17>
+
+* Onboarding
+** Setup
+*** Downloading a text editor
+I strongly recommend Visual Studio Code : [[https://code.visualstudio.com/][https://code.visualstudio.com/]]
+
+Reasons : Easy for beginners, Open source, a lot of extensions,
+mainstream, nice UI/UX, remote editing, ...
+
+Download the installer of your choice, and go through the installation
+
+Open a CLI and type in : code --version
+
+*** Downloading Git
+On Windows10 : https://git-scm.com/download/win
+Download the installer, and execute it.
+
+*** Downloading the project
+- ~git clone <url>~ (use the HTTPS URL by default (or the SSH if you
+  configured it)
+
+*** First modifications
+**** Observe the repository state
+- ~git status~ : see the differences between the commit you point to
+  and the current state of the folder.
+- ~git log~ : See the commit history of the current branch. Note : the
+  ~--oneline~ flag gives a shorter description per commit.
+
+**** Commit modifications and share them to workmates
+- ~git remote add <name> <url>~ : Adds a remote repository.
+  Usually, we use ~origin~ for one's own fork, and ~upstream~ for the
+  official repository.
+- ~git add .~ : Add files in the "staging area" (preparation area)
+  before commiting (archiving) the modified/added/deleted files.
+- ~git commit -m "Updated this file : file.txt"~ : Commit (archive the
+  delta modifications) in your local machine
+- ~git push <name>~ : Push your modifications on the remote
+  server. ~<name>~ refers to the remote repository name you want to push
+  to (for example origin or upstream).
+- ~git pull <name> <branch>~ : Pulling changes from a remote repository")
+
+*** Download Nodejs
+
+Link : https://nodejs.org/en/download/
+(Let every default as is)
+
+And voilà, you are ready to play !
