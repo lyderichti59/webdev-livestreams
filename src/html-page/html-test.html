@@ -1,13 +1,21 @@
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
   </head>
   <body>
-    <h1>Welcome on my first page</h1>
+    <h1 style="color:#0000FF">Welcome on my first page !</h1>
     <h2>Goal</h2>
     <p>We want to have a text field and a button. When the user clicks
       on the button, an alert box shows up and displays the textfield content</p>
     <h2>Result</h2>
+    <p>Action to make when clicking on the button :</p>
+
+    <input class="radio-choice" type="radio" id="popup" name="action" value="popup">
+    <label for="popup">Show popup</label><br>
+
+    <input class="radio-choice" type="radio" id="search" name="action" value="search">
+    <label for="search">Search in Google</label><br><br>
+
     <input id="my-text" type="text" placeholder="Type anything...."/>
     <button id="my-button">Show popup</button>
   </body>
@@ -15,6 +23,15 @@
    document.getElementById("my-button").addEventListener("click", () => {
        let txt = document.getElementById("my-text").value;
        alert(`Le champ contient le message suivant : ${txt}`);
-   })
+   });
+
+   for(let radio of document.getElementsByClassName("radio-choice")){
+    radio.addEventListener("click", () => 
+    {
+      alert(`L'option '${radio.id}' a été cochée`);
+    })
+   }
+
+
   </script>
 </html>
