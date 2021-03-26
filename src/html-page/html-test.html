@@ -3,34 +3,85 @@
     <meta charset="utf-8"/>
   </head>
   <body>
-    <h1 style="color:#0000FF">Welcome on my first page !</h1>
-    <h2>Goal</h2>
-    <p>We want to have a text field and a button. When the user clicks
-      on the button, an alert box shows up and displays the textfield content</p>
-    <h2>Result</h2>
+    <h1>Welcome on my first page !</h1>
+    <h2 style="text-decoration: underline;">Goal</h2>
+    <h3>Elements on the page</h3>
+    <ul>
+      <li>A radio group with two choices : "Show popup" and "Google Search"</li>
+      <li>A textfield</li>
+      <li>A button</li>
+    </ul>
+    <h3>Behavior</h3>
+    <p>When the "Show popup" radio is selected, the button's title is "Show Popup" and when
+       the button is clicked, a popup displays the content of the textfield's content.</p>
+    <p>When the "Google Search" radio is selected, the button's title is "Google Search" and when
+       the button is clicked, the current page is redireced to a google search with the textfield's
+       content.</p>
+       
+    <h2 style="text-decoration: underline;">Result</h2>
     <p>Action to make when clicking on the button :</p>
 
     <input class="radio-choice" type="radio" id="popup" name="action" value="popup">
     <label for="popup">Show popup</label><br>
 
     <input class="radio-choice" type="radio" id="search" name="action" value="search">
-    <label for="search">Search in Google</label><br><br>
+    <label for="search">Google Search</label><br><br>
 
     <input id="my-text" type="text" placeholder="Type anything...."/>
-    <button id="my-button">Show popup</button>
+    <button id="my-button">Not bound yet</button>
   </body>
   <script>
-   document.getElementById("my-button").addEventListener("click", () => {
-       let txt = document.getElementById("my-text").value;
-       alert(`Le champ contient le message suivant : ${txt}`);
-   });
+   
+   /* Actions */
+   function showPopup (txt){
+    alert(`Le champ contient le message suivant : ${txt}`);
+   }
 
-   for(let radio of document.getElementsByClassName("radio-choice")){
+   function googleSearch (txt){
+     // Changes the URL of the browser tab : triggers a page refresh on the new URL
+     window.location = "https://google.com/search?q=" + encodeURI(txt);
+   }
+
+   // Binding actions to radio id (dictionnary of actions = strategy pattern)
+   const actions = {
+     popup: showPopup,
+     search: googleSearch
+   }
+
+   /* Getting useful DOM Elements from the HTML to Javascript */
+   var button = document.getElementById("my-button");
+   var textField = document.getElementById("my-text");
+   var labelList = document.getElementsByTagName("label");
+   var radioList = document.querySelectorAll("input[name=action]");
+   var selectedRadio = null;
+
+   /* Changing the name of the button depending on the radio choice*/
+   for(let radio of radioList){
     radio.addEventListener("click", () => 
     {
-      alert(`L'option '${radio.id}' a été cochée`);
-    })
+      // When the radio is selected
+      if(radio.value)
+      {
+        // Updating the selected radio
+        selectedRadio = radio;
+        //Find the label given its 'for' attribute
+        // and affecting its text label to the button
+        button.innerHTML = Array.from(labelList)
+                                .find((label) => label.htmlFor == radio.id)
+                                .innerHTML;
+      }
+    });
    }
+
+   // When the button is clicked
+   button.addEventListener("click", () => {
+     // Passing the textField's content to the selected action
+       actions[selectedRadio.id](textField.value);
+   });
+
+   // When the page is loaded (or refreshed) :
+   // Select the first radio choice by default
+   radioList[0].click();
 
 
   </script>
