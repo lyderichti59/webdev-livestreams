@@ -5,8 +5,8 @@
   <body>
     <h1>Welcome on my first page !</h1>
     <h2 style="text-decoration: underline;">Goal</h2>
-    <h3>Elements on the page</h3>
-    <ul>
+    <h3>Elements on the page</h3> 
+    <ul> 
       <li>A radio group with two choices : "Show popup" and "Google Search"</li>
       <li>A textfield</li>
       <li>A button</li>
@@ -15,17 +15,23 @@
     <p>When the "Show popup" radio is selected, the button's title is "Show Popup" and when
        the button is clicked, a popup displays the content of the textfield's content.</p>
     <p>When the "Google Search" radio is selected, the button's title is "Google Search" and when
-       the button is clicked, the current page is redireced to a google search with the textfield's
+       the button is clicked, the current page is redirected to a google search with the textfield's
+       content.</p>
+    <p>When the "Qwant Search" radio is selected, the button's title is "Qwant Search" and when
+       the button is clicked, the current page is redirected to a qwant search with the textfield's
        content.</p>
        
     <h2 style="text-decoration: underline;">Result</h2>
     <p>Action to make when clicking on the button :</p>
 
-    <input class="radio-choice" type="radio" id="popup" name="action" value="popup">
+    <input type="radio" id="popup" name="action" value="popup">
     <label for="popup">Show popup</label><br>
 
-    <input class="radio-choice" type="radio" id="search" name="action" value="search">
-    <label for="search">Google Search</label><br><br>
+    <input type="radio" id="googleSearch" name="action" value="search">
+    <label for="gooogleSearch">Google Search</label><br>
+
+    <input type="radio" id="qwantSearch" name="action" value="search">
+    <label for="qwantSearch">Qwant Search</label><br><br>
 
     <input id="my-text" type="text" placeholder="Type anything...."/>
     <button id="my-button">Not bound yet</button>
@@ -42,10 +48,16 @@
      window.location = "https://google.com/search?q=" + encodeURI(txt);
    }
 
+   function qwantSearch (txt){
+     // Changes the URL of the browser tab : triggers a page refresh on the new URL
+     window.location = "https://qwant.com/?q=" + encodeURI(txt);
+   }
+
    // Binding actions to radio id (dictionnary of actions = strategy pattern)
    const actions = {
      popup: showPopup,
-     search: googleSearch
+     googleSearch: googleSearch,
+     qwantSearch: qwantSearch
    }
 
    /* Getting useful DOM Elements from the HTML to Javascript */
@@ -60,7 +72,7 @@
     radio.addEventListener("click", () => 
     {
       // When the radio is selected
-      if(radio.value)
+      if(radio.checked)
       {
         // Updating the selected radio
         selectedRadio = radio;
@@ -76,7 +88,7 @@
    // When the button is clicked
    button.addEventListener("click", () => {
      // Passing the textField's content to the selected action
-       actions[selectedRadio.id](textField.value);
+     actions[selectedRadio.id](textField.value);
    });
 
    // When the page is loaded (or refreshed) :
